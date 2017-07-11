@@ -13,7 +13,7 @@ switch (myArgs[0]) {
      getTweets();
      break;
    case 'movie-this':
-     console.log(myArgs[1], 'is really cool.');
+     movieThis();
      break;
    case 'spotify-this-song':
      console.log(myArgs[1], 'is really cool.');
@@ -22,6 +22,25 @@ switch (myArgs[0]) {
      console.log('I dont know how to do that.');
  }
 
+
+function movieThis() {
+  var movie = myArgs[1];
+  var key = "40e9cece";
+  var queryUrl = "http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=" + key;
+
+  request(queryUrl, function(error, response, body) {
+    if (!error && response.statusCode === 200) {
+      console.log("Title: " + JSON.parse(body).Title);
+      console.log("Released: " + JSON.parse(body).Released);
+      console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
+      console.log("Rotten Tomatoes: " + JSON.parse(body).Ratings[1].Value);
+      console.log("Country: " + JSON.parse(body).Country);
+      console.log("Language: " + JSON.parse(body).Language);
+      console.log("Starring: " + JSON.parse(body).Actors);
+      console.log("Plot: " + JSON.parse(body).Plot);
+    }
+  });
+}
 
 
 function getTweets() {
